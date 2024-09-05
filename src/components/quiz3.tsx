@@ -1,0 +1,8 @@
+const Child = () => {
+  return <p>Quiz3 done</p>;
+};
+const Quiz3 = () => {
+  return <Child />;
+};
+
+export default Quiz3;
