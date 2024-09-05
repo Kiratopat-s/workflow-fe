@@ -4,9 +4,6 @@ import Quiz3 from "@/components/quiz3";
 import Quiz4 from "@/components/quiz4";
 
 export default function Home() {
-  let name: string = "Home";
-  let age: number = 20;
-  let isBoy: boolean = true;
   return (
     <main>
       <Quiz1 />
