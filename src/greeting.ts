@@ -4,11 +4,11 @@ interface GreetingProps {
     format: string
 }
 
-function greeting(person: GreetingProps) {
-    if (person.format === "Table") {
-        console.table(person)
+function greeting(props: GreetingProps) {
+    if (props.format === "Table") {
+        console.table(props)
     } else {
-        console.log(`Hello, ${person.name}! You are ${person.age} years old.`)
+        console.log(`Hello, ${props.name}! You are ${props.age} years old.`)
     }
 }
 
