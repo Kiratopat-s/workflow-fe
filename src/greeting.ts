@@ -17,3 +17,9 @@ greeting({
     age: 18,
     format: "Table"
 })
+
+greeting({
+    name: "Alice",
+    age: 18,
+    format: "default"
+})
