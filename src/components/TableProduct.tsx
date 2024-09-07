@@ -10,37 +10,43 @@ interface TableProductProps {
   products: product[];
 }
 
-// const TableProduct = (product: product[]) => {
+function TableHead({ name }: { name: string }) {
+  return (
+    <th
+      scope="col"
+      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+    >
+      Image
+    </th>
+  );
+}
+
+function TableDefaultBody({
+  child,
+  addOnCSS,
+}: {
+  child: any;
+  addOnCSS: string;
+}) {
+  return (
+    <td
+      className={`px-6 py-4 whitespace-nowrap text-sm text-gray-900 ${addOnCSS}`}
+    >
+      {child}
+    </td>
+  );
+}
+
 function TableProduct({ products }: TableProductProps) {
   return (
     <>
       <table className="min-w-full divide-y divide-gray-200">
         <thead className="bg-gray-50">
           <tr>
-            <th
-              scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-            >
-              Image
-            </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-            >
-              Title
-            </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-            >
-              Amount
-            </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-            >
-              Actions
-            </th>
+            <TableHead name="Image" />
+            <TableHead name="Title" />
+            <TableHead name="Amount" />
+            <TableHead name="Actions" />
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
@@ -55,16 +61,20 @@ function TableProduct({ products }: TableProductProps) {
                       className="max-w-full h-28 object-cover rounded"
                     />
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    {product.title}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {product.amount}
-                  </td>
+                  <TableDefaultBody child={product.title} addOnCSS="" />
+                  <TableDefaultBody child={product.amount} addOnCSS="" />
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     <div className="flex space-x-2">
-                      <ButtonComponent name="Approve" color="green" />
-                      <ButtonComponent name="Reject" color="red" />
+                      <ButtonComponent
+                        product={product.title}
+                        name="Approve"
+                        color="green"
+                      />
+                      <ButtonComponent
+                        product={product.title}
+                        name="Reject"
+                        color="red"
+                      />
                     </div>
                   </td>
                 </tr>
