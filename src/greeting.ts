@@ -1,28 +1,22 @@
 interface GreetingProps {
     name: string
     age: number
-    format: string
+    format?: string
 }
 
 function greeting(props: GreetingProps) {
-    if (props.format === "Table") {
-        console.table({
-            name: props.name,
-            age: props.age
-        })
+    const { name, age } = props
+    const format = props.format || "Default"
+    if (format === "Table") {
+        console.table({ name, age })
+    } else if (format === "Default") {
+        console.log(`Hello, ${name}`)
     } else {
-        console.log(`Hi, ${props.name}`)
+        throw new Error("Invalid format")
     }
 }
 
-greeting({
-    name: "Alice",
-    age: 18,
-    format: "Table"
-})
-
-greeting({
-    name: "Alice",
-    age: 18,
-    format: "default"
-})
+greeting({ name: "Alice", age: 18, format: "Table" })
+greeting({ name: "Bob", age: 18, format: "Default" })
+greeting({ name: "Charlie", age: 18 }) // Hi, Charlie
+greeting({ name: "Charlie", age: 18, format: "abc" }) // typescript error
