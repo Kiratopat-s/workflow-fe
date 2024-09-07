@@ -1,7 +1,7 @@
 interface GreetingProps {
     name: string
     age: number
-    format?: string
+    format?: "Table" | "Default"
 }
 
 function greeting(props: GreetingProps) {
