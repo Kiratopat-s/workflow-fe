@@ -1,4 +1,5 @@
 "use client";
+import { ButtonComponent } from "./ButtonComponent";
 export interface product {
   image: string;
   title: string;
@@ -7,11 +8,6 @@ export interface product {
 
 interface TableProductProps {
   products: product[];
-}
-
-function OnClickHandler(event: any) {
-  const innerText = event.target.name;
-  alert(innerText);
 }
 
 // const TableProduct = (product: product[]) => {
@@ -55,7 +51,7 @@ function TableProduct({ products }: TableProductProps) {
                   <td className="px-6 py-4 whitespace-nowrap">
                     <img
                       src={product.image}
-                      alt="Hard Disk/SSD"
+                      alt={product.title}
                       className="max-w-full h-28 object-cover rounded"
                     />
                   </td>
@@ -67,20 +63,8 @@ function TableProduct({ products }: TableProductProps) {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     <div className="flex space-x-2">
-                      <button
-                        name="Approve"
-                        onClick={OnClickHandler}
-                        className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
-                      >
-                        Approve
-                      </button>
-                      <button
-                        name="Reject"
-                        onClick={OnClickHandler}
-                        className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-                      >
-                        Reject
-                      </button>
+                      <ButtonComponent name="Approve" color="green" />
+                      <ButtonComponent name="Reject" color="red" />
                     </div>
                   </td>
                 </tr>
