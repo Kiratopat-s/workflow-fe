@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 function InputCreatePageComponent({ name }: { name: string }) {
   return (
-    <div className="absolute top-0 flex flex-col h-screen w-screen justify-center items-center gap-8">
+    <div className="absolute top-0 flex flex-col h-screen w-screen max-w-xs justify-center items-center gap-8">
       <label className="self-start text-4xl" htmlFor={`text-${name}`}>
         {name}
       </label>
