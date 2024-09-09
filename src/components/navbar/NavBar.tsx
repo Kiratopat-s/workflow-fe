@@ -116,7 +116,7 @@ function NavBar() {
                   role="button"
                   className="btn btn-ghost btn-circle avatar"
                 >
-                  <div className="w-10 rounded-full ring-1 ring-white">
+                  <div className="w-10 rounded-full ring-1 ring-base">
                     <Image
                       alt="Tailwind CSS Navbar component"
                       src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
