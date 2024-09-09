@@ -1,6 +1,7 @@
 "use client";
+import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function NavberButton({ title }: { title: string }) {
   return (
@@ -13,11 +14,13 @@ function NavberButton({ title }: { title: string }) {
 
 function NavBar() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(true);
-  const themeStatus =
-    document.documentElement.getAttribute("data-theme") || "light";
-  const [isToggleTheme, setIsToggleTheme] = useState<boolean>(
-    themeStatus === "dark"
-  );
+  const [isToggleTheme, setIsToggleTheme] = useState<boolean>(false);
+
+  useEffect(() => {
+    const themeStatus =
+      document.documentElement.getAttribute("data-theme") || "light";
+    setIsToggleTheme(themeStatus === "dark");
+  }, []);
 
   const handleThemeChange = () => {
     if (isToggleTheme) {
@@ -114,9 +117,11 @@ function NavBar() {
                   className="btn btn-ghost btn-circle avatar"
                 >
                   <div className="w-10 rounded-full ring-1 ring-white">
-                    <img
+                    <Image
                       alt="Tailwind CSS Navbar component"
                       src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                      width={500} // replace with actual image width
+                      height={300} // replace with actual image height
                     />
                   </div>
                 </div>
