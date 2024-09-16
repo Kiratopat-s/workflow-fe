@@ -53,7 +53,7 @@ function NavBar() {
                       <Link href={"/add"}>New</Link>
                     </li>
                     <li>
-                      <Link href={"/update"}>Mine</Link>
+                      <Link href={"/update"}>Update</Link>
                     </li>
                   </ul>
                 </details>
