@@ -1,4 +1,4 @@
-import HomeBanner from "@/components/navbar/HomeBanner";
+import HomeBanner from "@/components/home/HomeBanner";
 import Loading from "./loadging";
 
 export default function Home() {

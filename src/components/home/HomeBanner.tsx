@@ -1,5 +1,5 @@
 import Spline from "@splinetool/react-spline/next";
-import HomeTypewriter from "@/components/navbar/HomeTypeWriter";
+import HomeTypewriter from "@/components/home/HomeTypeWriter";
 import Link from "next/link";
 import { Suspense } from "react";
 
