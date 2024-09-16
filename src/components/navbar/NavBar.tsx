@@ -1,4 +1,5 @@
 "use client";
+import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
@@ -14,21 +15,13 @@ function NavberButton({ title }: { title: string }) {
 
 function NavBar() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(true);
-  const [isToggleTheme, setIsToggleTheme] = useState<boolean>(false);
+  const [mounted, setMounted] = useState(false);
+  const { setTheme, resolvedTheme } = useTheme();
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
 
-  useEffect(() => {
-    const themeStatus =
-      document.documentElement.getAttribute("data-theme") || "light";
-    setIsToggleTheme(themeStatus === "dark");
-  }, []);
-
-  const handleThemeChange = () => {
-    if (isToggleTheme) {
-      document.documentElement.setAttribute("data-theme", "light");
-    } else {
-      document.documentElement.setAttribute("data-theme", "dark");
-    }
-    setIsToggleTheme(!isToggleTheme);
+  const ToggleThemeHandler = () => {
+    setTheme(resolvedTheme === "dark" ? "light" : "dark");
   };
 
   return (
@@ -48,8 +41,8 @@ function NavBar() {
               type="checkbox"
               id="toggleTheme"
               className="toggle self-center align-middle"
-              checked={isToggleTheme}
-              onChange={handleThemeChange}
+              checked={resolvedTheme === "dark"}
+              onChange={ToggleThemeHandler}
             />
             <ul className="menu menu-horizontal px-1">
               <li>
@@ -57,7 +50,7 @@ function NavBar() {
                   <summary>Items</summary>
                   <ul className="bg-base-100 rounded-t-none p-2">
                     <li>
-                      <Link href={"/create"}>New</Link>
+                      <Link href={"/add"}>New</Link>
                     </li>
                     <li>
                       <Link href={"/update"}>Mine</Link>

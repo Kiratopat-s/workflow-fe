@@ -6,7 +6,8 @@ const config: Config = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  themes: ["light", "dark", "cupcake"],
+  themes: ["light", "dark"],
   plugins: [require('daisyui'),],
+  darkMode: "class",
 };
 export default config;
