@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import NavBar from "@/components/navbar/NavBar";
+import MyThemeProvider from "@/components/ThemeProvider";
 
 export const metadata: Metadata = {
   title: "Workflow PEA",
@@ -13,10 +14,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html data-theme="light" lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body>
-        <NavBar />
-        <main className="flex justify-center h-auto w-screen">{children}</main>
+        <MyThemeProvider>
+          <NavBar />
+          <main className="flex justify-center h-auto w-screen">
+            {children}
+          </main>
+        </MyThemeProvider>
       </body>
     </html>
   );
