@@ -1,0 +1,122 @@
+"use client";
+import {
+  Captions,
+  ChevronLeft,
+  PackagePlus,
+  SendHorizontal,
+} from "lucide-react";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
+import TitleInput from "./TitleInput";
+import QuantityInput from "./QuantityInput";
+import AmountInput from "./AmountInput";
+
+// Define Zod schema for form validation
+const schema = z.object({
+  title: z.string().min(1, "Title is required").max(30, "Title is too long"),
+  quantity: z
+    .number({ invalid_type_error: "Quantity must be a number" })
+    .min(1, "Quantity must be at least 1"),
+  amount: z
+    .number({ invalid_type_error: "Amount must be a number" })
+    .min(0, "Amount must be at least 0")
+    .refine((value) => Number(value.toFixed(2)) === value, {
+      message: "Amount must have at most 2 decimal places",
+    }),
+});
+
+// Define the form values type
+export type FormValues = z.infer<typeof schema>;
+
+type FormProps = {
+  mode: "add" | "update";
+  initialValues?: Partial<FormValues>;
+  onSubmit: SubmitHandler<FormValues>;
+};
+
+function BudgetForm({ mode, initialValues, onSubmit }: FormProps) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+    reset,
+  } = useForm<FormValues>({
+    resolver: zodResolver(schema),
+    defaultValues: initialValues || { title: "", quantity: 0, amount: 0 },
+  });
+
+  // Populate form with initial values when in "update" mode
+  useEffect(() => {
+    if (initialValues) {
+      reset(initialValues);
+    }
+  }, [initialValues, reset]);
+
+  // Handle formatting of the amount input on blur
+  const handleAmountBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+    const value = parseFloat(event.target.value);
+    if (!isNaN(value)) {
+      setValue("amount", parseFloat(value.toFixed(2)), {
+        shouldValidate: true,
+      });
+    }
+  };
+
+  return (
+    <div className="absolute top-0 flex flex-col h-screen w-screen max-w-xs md:max-w-md lg:max-w-lg xl:max-w-xl justify-center items-center gap-8">
+      <div className="rounded-lg flex flex-col h-auto w-full shadow-md bg-base-200 gap-8 p-8">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
+          <label className="self-start text-2xl flex gap-2" htmlFor="title">
+            {mode === "add" ? (
+              <>
+                <div className="flex flex-col justify-center">
+                  <PackagePlus />
+                </div>
+                Add new budget
+              </>
+            ) : (
+              <>
+                <div className="flex flex-col justify-center">
+                  <i className="fa-solid fa-pen-to-square"></i>
+                </div>
+                Update budget
+              </>
+            )}
+          </label>
+
+          {/* Title input */}
+          <TitleInput register={register} error={errors.title?.message} />
+
+          {/* Quantity input */}
+          <QuantityInput register={register} error={errors.quantity?.message} />
+
+          {/* Amount input */}
+          <AmountInput
+            register={register}
+            error={errors.amount?.message}
+            onBlur={handleAmountBlur}
+          />
+
+          {/* Submit button */}
+          <div className="flex flex-col gap-4">
+            <button type="submit" className="btn btn-primary">
+              <SendHorizontal />
+              {mode === "add" ? "Submit" : "Update"}
+            </button>
+
+            {/* Back button */}
+            <button type="button" className="btn btn-ghost">
+              <ChevronLeft />
+              Back
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+export default BudgetForm;
