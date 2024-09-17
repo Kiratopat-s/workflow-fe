@@ -1,6 +1,8 @@
+// types/formTypes.ts
 import { SignupFormValues } from "@/type/zod/Auth";
 import { SubmitHandler } from "react-hook-form";
 
-// export interface FormProps {
-//     onSubmit: SubmitHandler<SignupFormValues>;
-// }
+
+export interface SignupFormProps {
+    onSubmit: SubmitHandler<SignupFormValues>;
+}
