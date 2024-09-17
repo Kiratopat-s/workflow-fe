@@ -108,7 +108,13 @@ function BudgetForm({ mode, initialValues, onSubmit }: FormProps) {
             </button>
 
             {/* Back button */}
-            <button type="button" className="btn btn-ghost">
+            <button
+              onClick={() => {
+                window.history.back();
+              }}
+              type="button"
+              className="btn btn-ghost"
+            >
               <ChevronLeft />
               Back
             </button>
