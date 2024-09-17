@@ -3,18 +3,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { House } from "lucide-react";
-
-// Define Zod schema for form validation
-const schema = z.object({
-  username: z.string().min(1, "Username is required"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
-  position: z.string().optional(),
-  firstName: z.string().optional(),
-  lastName: z.string().optional(),
-  photoLink: z.string().url("Photo link must be a valid URL").optional(),
-});
-
-export type SignupFormValues = z.infer<typeof schema>;
+import { SignupFormValues, SignupSchema } from "@/type/zod/Auth";
 
 interface FormProps {
   onSubmit: SubmitHandler<SignupFormValues>;
@@ -26,7 +15,7 @@ const SignupForm: React.FC<FormProps> = ({ onSubmit }) => {
     handleSubmit,
     formState: { errors },
   } = useForm<SignupFormValues>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(SignupSchema),
   });
 
   return (

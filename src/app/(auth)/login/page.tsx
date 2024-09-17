@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { setCookie } from "nookies";
 import { loginUser } from "@/services/Signin";
-import { LoginFormValues, LoginSchema } from "@/app/zod/Auth";
+import { LoginFormValues, LoginSchema } from "@/type/zod/Auth";
 
 function Login() {
   const router = useRouter();

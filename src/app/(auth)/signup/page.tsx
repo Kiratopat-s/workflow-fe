@@ -2,9 +2,10 @@
 import React from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import SignupForm, { SignupFormValues } from "@/components/auth/SignupForm";
+import SignupForm from "@/components/auth/SignupForm";
 import { SubmitHandler } from "react-hook-form";
-import { SignupUser } from "@/services/signup";
+import { SignupUser } from "@/services/Signup";
+import { SignupFormValues } from "@/type/zod/Auth";
 
 async function registerUser(data: SignupFormValues) {
   return SignupUser(data);
