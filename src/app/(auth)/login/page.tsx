@@ -9,34 +9,12 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { setCookie } from "nookies";
-import { loginUser } from "@/services/signin";
-
-// Define Zod schema for form validation
-const schema = z.object({
-  username: z.string().min(1, "Username is required"),
-  password: z.string().min(1, "Password is required"),
-});
-
-// Define the form values type
-type LoginFormValues = z.infer<typeof schema>;
+import { loginUser } from "@/services/Signin";
+import { LoginFormValues, LoginSchema } from "@/app/zod/Auth";
 
 function Login() {
   const router = useRouter();
-  const { login } = useAuth(); // Get login function from AuthContext
-
-  useEffect(() => {
-    //Check if user is already logged in
-    if (typeof window !== "undefined") {
-      // get token from cookie
-      const token = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("token="))
-        ?.split("=")[1];
-      if (token) {
-        router.push("/dashboard");
-      }
-    }
-  }, [router]);
+  const { login } = useAuth();
 
   // Initialize react-hook-form with Zod schema
   const {
@@ -44,7 +22,7 @@ function Login() {
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormValues>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(LoginSchema),
   });
 
   const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {
@@ -57,13 +35,11 @@ function Login() {
       if (response.token) {
         // Save token in a cookie, accessible by both client and server
         setCookie(null, "token", response.token, {
-          maxAge: 30 * 24 * 60 * 60, // 30 days
+          maxAge: 30 * 60,
           path: "/",
         });
-
         // Update AuthContext with user information
         login(response.token);
-
         toast.success(`Login successful (Duration: ${duration}ms)`);
         router.push("/dashboard");
       } else {
