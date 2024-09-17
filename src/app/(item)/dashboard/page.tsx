@@ -7,7 +7,6 @@ import {
   Trash2,
 } from "lucide-react";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import useDebounce from "@/utils/debounce";
 import ItemRow from "@/components/dashboard/ItemRow";
 import toast from "react-hot-toast";
@@ -16,6 +15,7 @@ import {
   DeleteItems,
   fetchItemsDashboard,
 } from "@/services/item/Items";
+import { itemProps } from "@/interface/Item";
 
 function Dashboard() {
   const [items, setItems] = useState<itemProps[]>([]);
