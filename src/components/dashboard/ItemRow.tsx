@@ -1,20 +1,7 @@
 import { ItemStatus } from "@/enum/Item";
+import { ItemRowProps } from "@/interface/Item";
 import { Pencil, ShieldCheck } from "lucide-react";
 import Link from "next/link";
-
-interface itemProps {
-  id: number;
-  title: string;
-  amount: number;
-  quantity: number;
-  status: "APPROVED" | "PENDING" | "REJECTED";
-}
-
-interface ItemRowProps {
-  item: itemProps;
-  choosedIDs: number[];
-  handleCheckboxChange: (id: number) => void;
-}
 
 const ItemRow: React.FC<ItemRowProps> = ({
   item,
@@ -35,7 +22,7 @@ const ItemRow: React.FC<ItemRowProps> = ({
       </th>
       <td>{item.id}</td>
       <td>
-        {item.status === "PENDING" ? (
+        {item.status === ItemStatus.PENDING ? (
           <Link
             href={`/update/${item.id}`}
             className="cursor-pointer hover:underline flex gap-2 align-baseline"

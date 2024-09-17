@@ -11,6 +11,11 @@ import axios from "axios";
 import useDebounce from "@/utils/debounce";
 import ItemRow from "@/components/dashboard/ItemRow";
 import toast from "react-hot-toast";
+import {
+  UpdateItemStatus,
+  DeleteItems,
+  fetchItemsDashboard,
+} from "@/services/item/Items";
 
 function Dashboard() {
   const [items, setItems] = useState<itemProps[]>([]);
@@ -43,45 +48,6 @@ function Dashboard() {
     });
   };
 
-  async function UpdateItemStatus({ status }: itemStatus, ids: number[]) {
-    const start_timer = Date.now();
-    try {
-      const res = await axios.patch(
-        `${process.env.NEXT_PUBLIC_API_URL}/items/update/status/many`,
-        {
-          status,
-          ids,
-        },
-        {
-          withCredentials: true,
-        }
-      );
-      console.log(res.data);
-      toast.success(`Updated item status in ${Date.now() - start_timer}ms`);
-    } catch (error) {
-      toast.error("Failed to update item status");
-      console.log(error);
-    }
-  }
-
-  async function DeleteItems(ids: number[]) {
-    const start_timer = Date.now();
-    try {
-      const res = await axios.delete(
-        `${process.env.NEXT_PUBLIC_API_URL}/items/delete/many`,
-        {
-          data: { ids },
-          withCredentials: true,
-        }
-      );
-      console.log(res.data);
-      toast.success(`Deleted items in ${Date.now() - start_timer}ms`);
-    } catch (error) {
-      toast.error("Failed to delete items");
-      console.log(error);
-    }
-  }
-
   const ApproveHandler = async () => {
     await UpdateItemStatus({ status: "APPROVED" }, choosedIDs);
     await fetchItems();
@@ -103,11 +69,8 @@ function Dashboard() {
   async function fetchItems() {
     const startTimer = Date.now();
     try {
-      const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/items`, {
-        withCredentials: true,
-      });
-      setItems(res.data.data);
-      console.log(res.data.data);
+      const res = await fetchItemsDashboard();
+      setItems(res);
       toast.success(`Fetched items in ${Date.now() - startTimer}ms`);
     } catch (error) {
       toast.error("Failed to fetch items");
@@ -146,8 +109,7 @@ function Dashboard() {
                     className="checkbox"
                     onChange={(e) => {
                       if (e.target.checked) {
-                        // Select all IDs if checked
-                        setChoosedIDs(filteredItems.map((item) => item.id)); // Add all IDs here
+                        setChoosedIDs(filteredItems.map((item) => item.id));
                       } else {
                         setChoosedIDs([]);
                       }
