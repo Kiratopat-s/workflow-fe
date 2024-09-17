@@ -1,50 +1,26 @@
 "use client";
-import {
-  Captions,
-  ChevronLeft,
-  PackagePlus,
-  SendHorizontal,
-} from "lucide-react";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { z } from "zod";
+import { ChevronLeft, PackagePlus, SendHorizontal } from "lucide-react";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import TitleInput from "./TitleInput";
 import QuantityInput from "./QuantityInput";
 import AmountInput from "./AmountInput";
+import {
+  AddItemFormProps,
+  AddItemFormValues,
+  AddItemSchema,
+} from "@/type/zod/Item";
 
-// Define Zod schema for form validation
-const schema = z.object({
-  title: z.string().min(1, "Title is required").max(30, "Title is too long"),
-  quantity: z
-    .number({ invalid_type_error: "Quantity must be a number" })
-    .min(1, "Quantity must be at least 1"),
-  amount: z
-    .number({ invalid_type_error: "Amount must be a number" })
-    .min(0, "Amount must be at least 0")
-    .refine((value) => Number(value.toFixed(2)) === value, {
-      message: "Amount must have at most 2 decimal places",
-    }),
-});
-
-// Define the form values type
-export type FormValues = z.infer<typeof schema>;
-
-type FormProps = {
-  mode: "add" | "update";
-  initialValues?: Partial<FormValues>;
-  onSubmit: SubmitHandler<FormValues>;
-};
-
-function BudgetForm({ mode, initialValues, onSubmit }: FormProps) {
+function BudgetForm({ mode, initialValues, onSubmit }: AddItemFormProps) {
   const {
     register,
     handleSubmit,
     formState: { errors },
     setValue,
     reset,
-  } = useForm<FormValues>({
-    resolver: zodResolver(schema),
+  } = useForm<AddItemFormValues>({
+    resolver: zodResolver(AddItemSchema),
     defaultValues: initialValues || { title: "", quantity: 0, amount: 0 },
   });
 

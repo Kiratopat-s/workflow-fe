@@ -1,24 +1,17 @@
 "use client";
-import BudgetForm, { FormValues } from "@/components/budget/BudgetForm";
-import axios from "axios";
+import BudgetForm from "@/components/budget/BudgetForm";
+import { AddNewItem } from "@/services/item/AddNewItem";
+import { AddItemFormValues } from "@/type/zod/Item";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 function AddBudget() {
   const router = useRouter();
 
-  const handleAddSubmit = async (data: FormValues) => {
+  const handleAddSubmit = async (data: AddItemFormValues) => {
     const startTime = Date.now();
     try {
-      // No need to manually add the token if it's already in a cookie and the cookie is set for the domain/path
-      const response = await axios.post<FormValues>(
-        `${process.env.NEXT_PUBLIC_API_URL}/items`,
-        // send all header and cookie
-        data,
-        {
-          withCredentials: true,
-        }
-      );
+      AddNewItem(data);
       toast.success(`Budget added (Duration: ${Date.now() - startTime}ms)`);
       router.push("/dashboard");
     } catch (error) {
