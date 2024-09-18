@@ -51,15 +51,17 @@ function Dashboard() {
   };
 
   const ApproveHandler = async () => {
-    await UpdateItemStatus({ status: "APPROVED" }, choosedIDs);
-    await fetchItems();
-    setChoosedIDs([]);
+    if (await UpdateItemStatus({ status: "APPROVED" }, choosedIDs)) {
+      await fetchItems();
+      setChoosedIDs([]);
+    }
   };
 
   const RejectHandler = async () => {
-    await UpdateItemStatus({ status: "REJECTED" }, choosedIDs);
-    await fetchItems();
-    setChoosedIDs([]);
+    if (await UpdateItemStatus({ status: "REJECTED" }, choosedIDs)) {
+      await fetchItems();
+      setChoosedIDs([]);
+    }
   };
 
   const DeleteHandler = async () => {

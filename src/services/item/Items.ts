@@ -1,6 +1,6 @@
 import { itemStatus } from "@/interface/Item";
 import { AddItemFormValues } from "@/type/zod/Item";
-import axios, { AxiosError } from "axios";
+import axios, { AxiosError, HttpStatusCode } from "axios";
 import toast from "react-hot-toast";
 
 export const fetchItemsOverviewStatus = async () => {
@@ -62,12 +62,26 @@ export async function UpdateItemStatus({ status }: itemStatus, ids: number[]) {
                 withCredentials: true,
             }
         );
-        console.log(res.data);
+
+        if (res.status === HttpStatusCode.Forbidden) {
+            return toast.error("You are not authorized to update item status");
+        }
         toast.success(`Updated item status in ${Date.now() - start_timer}ms`);
+        return true;
     } catch (error) {
-        toast.error("Failed to update item status");
-        console.log(error);
+        if (axios.isAxiosError(error)) {
+            if (error.response?.status === HttpStatusCode.Forbidden) {
+                toast.error("You are not authorized to update item status");
+            } else {
+                toast.error("An error occurred while updating item status");
+            }
+        } else {
+            console.error("Unexpected error:", error);
+            toast.error("An unexpected error occurred");
+        }
+        return false;
     }
+
 }
 
 export async function GetItemInfoById(id: number) {
