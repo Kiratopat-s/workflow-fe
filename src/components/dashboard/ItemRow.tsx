@@ -44,7 +44,11 @@ const ItemRow: React.FC<ItemRowProps> = ({
       </td>
       <th>
         <p
-          className={item.status === ItemStatus.REJECTED ? "line-through" : ""}
+          className={
+            item.status === ItemStatus.REJECTED
+              ? "line-through hover:no-underline"
+              : ""
+          }
         >
           {item.amount.toLocaleString("TH")} THB
         </p>
