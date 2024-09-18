@@ -16,11 +16,13 @@ import {
   fetchItemsDashboard,
 } from "@/services/item/Items";
 import { itemProps } from "@/interface/Item";
+import { useItemStatus } from "@/context/ItemStatusContext";
 
 function Dashboard() {
   const [items, setItems] = useState<itemProps[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredItems, setFilteredItems] = useState<itemProps[]>([]);
+  const { fetchItemStatus } = useItemStatus();
 
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
 
@@ -72,6 +74,7 @@ function Dashboard() {
       const res = await fetchItemsDashboard();
       setItems(res);
       toast.success(`Fetched items in ${Date.now() - startTimer}ms`);
+      await fetchItemStatus();
     } catch (error) {
       toast.error("Failed to fetch items");
       console.log(error);
@@ -80,9 +83,7 @@ function Dashboard() {
 
   useEffect(() => {
     fetchItems();
-    return () => {
-      console.log("cleare");
-    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

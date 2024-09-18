@@ -3,6 +3,24 @@ import { AddItemFormValues } from "@/type/zod/Item";
 import axios, { AxiosError } from "axios";
 import toast from "react-hot-toast";
 
+export const fetchItemsOverviewStatus = async () => {
+
+    try {
+        const response = await axios.get(
+            `${process.env.NEXT_PUBLIC_API_URL}/items/status/count/user`,
+            {
+                withCredentials: true,
+            }
+        );
+        return response.data.data;
+    } catch (error) {
+        if (error && (error as AxiosError).response) {
+            throw new Error("Failed to fetch items overview status");
+        } else {
+            throw error;
+        }
+    }
+};
 
 export const AddNewItem = async (data: AddItemFormValues) => {
     try {

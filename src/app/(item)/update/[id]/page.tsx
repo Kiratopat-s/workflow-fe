@@ -2,12 +2,14 @@
 
 import Loading from "@/app/loadging";
 import BudgetForm from "@/components/budget/BudgetForm";
+import { useItemStatus } from "@/context/ItemStatusContext";
 import { GetItemInfoById, UpdateItemById } from "@/services/item/Items";
 import { AddItemFormValues } from "@/type/zod/Item";
 import { HttpStatusCode } from "axios";
 import { useEffect, useState } from "react";
 
 function UpdateBudget({ params }: { params: { id: number } }) {
+  const { fetchItemStatus } = useItemStatus();
   const itemId = params.id;
 
   const [initialValues, setInitialValues] =
@@ -45,8 +47,10 @@ function UpdateBudget({ params }: { params: { id: number } }) {
   const handleUpdateSubmit = async (data: AddItemFormValues) => {
     try {
       const res = await UpdateItemById(itemId, data);
-      // console.log(res);
-      if (res?.status === HttpStatusCode.Ok) UpdateAnimation();
+      if (res?.status === HttpStatusCode.Ok) {
+        UpdateAnimation();
+        await fetchItemStatus();
+      }
     } catch (err) {
       console.error(err);
     }

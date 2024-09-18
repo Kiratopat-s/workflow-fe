@@ -4,6 +4,7 @@ import NavBar from "@/components/navbar/NavBar";
 import MyThemeProvider from "@/components/ThemeProvider";
 import { Toaster } from "react-hot-toast";
 import { AuthProvider } from "@/context/AuthContext";
+import { ItemStatusProvider } from "@/context/ItemStatusContext";
 
 export const metadata: Metadata = {
   title: "Workflow PEA",
@@ -19,28 +20,30 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <AuthProvider>
         <body>
-          <MyThemeProvider>
-            <Toaster
-              toastOptions={{
-                // Define default options
-                className: "",
-                duration: 5000,
-                style: {
-                  background: "#363636",
-                  color: "#fff",
-                },
+          <ItemStatusProvider>
+            <MyThemeProvider>
+              <Toaster
+                toastOptions={{
+                  // Define default options
+                  className: "",
+                  duration: 5000,
+                  style: {
+                    background: "#363636",
+                    color: "#fff",
+                  },
 
-                // Default options for specific types
-                success: {
-                  duration: 4000,
-                },
-              }}
-            />
-            <NavBar />
-            <main className="flex justify-center h-auto w-screen">
-              {children}
-            </main>
-          </MyThemeProvider>
+                  // Default options for specific types
+                  success: {
+                    duration: 4000,
+                  },
+                }}
+              />
+              <NavBar />
+              <main className="flex justify-center h-auto w-screen">
+                {children}
+              </main>
+            </MyThemeProvider>
+          </ItemStatusProvider>
         </body>
       </AuthProvider>
     </html>

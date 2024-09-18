@@ -1,6 +1,7 @@
-// NavBar component
 "use client";
 import { useAuth } from "@/context/AuthContext";
+import { useItemStatus } from "@/context/ItemStatusContext";
+import { ItemStatus } from "@/enum/Item";
 import { PackageOpen } from "lucide-react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
@@ -15,13 +16,16 @@ function NavberButton({ title }: { title: string }) {
     </button>
   );
 }
-
 function NavBar() {
-  const { user, isAuthenticated, logout } = useAuth(); // Subscribe to AuthContext
+  const { itemStatus, fetchItemStatus } = useItemStatus();
+  const { user, isAuthenticated, logout } = useAuth();
   const [mounted, setMounted] = useState(false);
   const { setTheme, resolvedTheme } = useTheme();
 
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   if (!mounted) return null;
 
   const ToggleThemeHandler = () => {
@@ -40,7 +44,7 @@ function NavBar() {
             Workflow
           </Link>
         </div>
-        <div className="flex">
+        <div className="flex gap-2">
           <div className="flex-none">
             <label className="hidden" htmlFor="toggleTheme">
               ChangeTheme
@@ -71,7 +75,7 @@ function NavBar() {
         </div>
         <div className="flex-none">
           {isAuthenticated ? (
-            <>
+            <div className="flex gap-2">
               <div className="dropdown dropdown-end">
                 <div
                   tabIndex={0}
@@ -80,7 +84,9 @@ function NavBar() {
                 >
                   <div className="indicator">
                     <PackageOpen />
-                    <span className="badge badge-sm indicator-item">8</span>
+                    <span className="badge badge-sm indicator-item text-info">
+                      {itemStatus.PENDING || 0}
+                    </span>
                   </div>
                 </div>
                 <div
@@ -89,9 +95,15 @@ function NavBar() {
                 >
                   <div className="card-body">
                     <span className="text-lg font-bold">My item</span>
-                    <span className="text-info">Pending : 4</span>
-                    <span className="text-success">Approved : 4</span>
-                    <span className="text-error">Rejected : 2</span>
+                    <span className="text-info">
+                      {ItemStatus.PENDING} : {itemStatus.PENDING || 0}
+                    </span>
+                    <span className="text-success">
+                      {ItemStatus.APPROVED} : {itemStatus.APPROVED || 0}
+                    </span>
+                    <span className="text-error">
+                      {ItemStatus.REJECTED} : {itemStatus.REJECTED || 0}
+                    </span>
                     <div className="card-actions">
                       <Link
                         href={"/dashboard"}
@@ -103,7 +115,12 @@ function NavBar() {
                   </div>
                 </div>
               </div>
-              <div className="dropdown dropdown-end">
+              <div className="dropdown dropdown-end flex gap-2">
+                <div className="flex flex-col justify-center">
+                  <div className="badge badge-accent badge-outline">
+                    {user?.position || "user"}
+                  </div>
+                </div>
                 <div
                   tabIndex={0}
                   role="button"
@@ -112,10 +129,12 @@ function NavBar() {
                   <div className="w-10 rounded-full ring-1 ring-base">
                     <Image
                       alt="User Avatar"
-                      src={user?.photoLink || ""}
-                      // src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                      width={500} // replace with actual image width
-                      height={300} // replace with actual image height
+                      src={
+                        user?.photoLink ||
+                        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                      }
+                      width={500}
+                      height={300}
                     />
                   </div>
                 </div>
@@ -131,7 +150,7 @@ function NavBar() {
                   </li>
                 </ul>
               </div>
-            </>
+            </div>
           ) : (
             <Link href={"/login"}>
               <NavberButton title="Login" />
