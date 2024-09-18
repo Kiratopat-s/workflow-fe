@@ -1,8 +1,8 @@
 "use client";
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { jwtDecode } from "jwt-decode"; // Import jwt-decode library
 import { AuthContextType, JwtPayload, User } from "@/interface/Auth";
+import { jwtDecode } from "jwt-decode";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -16,6 +16,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const decodeTokenAndSetUser = (token: string) => {
     try {
       const decoded: JwtPayload = jwtDecode(token);
+      const currentTime = Date.now() / 1000; // current time in seconds
+
+      if (decoded.exp < currentTime) {
+        // Token is expired
+        handleLogout();
+        return;
+      }
+
       const userData: User = {
         uid: decoded.uid,
         username: decoded.username,
@@ -36,11 +44,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     decodeTokenAndSetUser(token);
   };
 
-  const logout = () => {
+  const handleLogout = () => {
     setUser(null);
     setIsAuthenticated(false);
     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    router.push("/");
+    router.push("/login");
+  };
+
+  const logout = () => {
+    handleLogout();
   };
 
   useEffect(() => {
@@ -48,10 +60,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       .split("; ")
       .find((row) => row.startsWith("token="))
       ?.split("=")[1];
+
     if (token) {
       decodeTokenAndSetUser(token);
+    } else {
+      // No token found, redirect to login
+      router.push("/login");
     }
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router]);
 
   return (
     <AuthContext.Provider value={{ user, isAuthenticated, login, logout }}>
