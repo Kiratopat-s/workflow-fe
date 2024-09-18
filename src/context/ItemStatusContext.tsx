@@ -2,17 +2,7 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { fetchItemsOverviewStatus } from "@/services/item/Items";
 import { useAuth } from "@/context/AuthContext"; // Assuming you have an AuthContext for authentication
-
-interface OverviewItemStatus {
-  PENDING: number;
-  APPROVED: number;
-  REJECTED: number;
-}
-
-interface ItemStatusContextType {
-  itemStatus: OverviewItemStatus;
-  fetchItemStatus: () => Promise<void>;
-}
+import { ItemStatusContextType, OverviewItemStatus } from "@/interface/Item";
 
 const ItemStatusContext = createContext<ItemStatusContextType | undefined>(
   undefined

@@ -14,3 +14,14 @@ export interface ItemRowProps {
     choosedIDs: number[];
     handleCheckboxChange: (id: number) => void;
 }
+
+export interface OverviewItemStatus {
+    PENDING: number;
+    APPROVED: number;
+    REJECTED: number;
+}
+
+export interface ItemStatusContextType {
+    itemStatus: OverviewItemStatus;
+    fetchItemStatus: () => Promise<void>;
+}
