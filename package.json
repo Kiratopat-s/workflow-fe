@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev -p 8000",
     "devt": "next dev --turbo -p 8000",
+    "bns": "next build && next start -p 3000",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
