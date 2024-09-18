@@ -3,7 +3,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useItemStatus } from "@/context/ItemStatusContext";
 import { ItemStatus } from "@/enum/Item";
 import { AppPath } from "@/enum/Path";
-import { PackageOpen } from "lucide-react";
+import { ChevronLeft, PackageOpen, Plus } from "lucide-react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
@@ -43,7 +43,10 @@ function NavBar() {
     <nav className="sticky top-0 z-50">
       <div className="navbar bg-base-100">
         <div className="flex-1">
-          <Link href={"/about"} className="btn btn-ghost text-xl">
+          <Link
+            href={isAuthenticated ? "/" : "/about"}
+            className="btn btn-ghost text-xl"
+          >
             Workflow
           </Link>
         </div>
@@ -67,6 +70,7 @@ function NavBar() {
                   className="btn btn-outline btn-accent btn-sm cursor-pointer"
                   onClick={() => window.history.back()}
                 >
+                  <ChevronLeft />
                   Back
                 </button>
               ) : (
@@ -74,6 +78,7 @@ function NavBar() {
                   className="btn btn-accent btn-sm cursor-pointer"
                   href={"/add"}
                 >
+                  <Plus />
                   New
                 </Link>
               )}
