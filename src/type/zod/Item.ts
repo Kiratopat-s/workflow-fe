@@ -22,4 +22,5 @@ export type AddItemFormProps = {
     mode: "add" | "update";
     initialValues?: Partial<AddItemFormValues>;
     onSubmit: SubmitHandler<AddItemFormValues>;
+    updateSuccess?: boolean;
 };

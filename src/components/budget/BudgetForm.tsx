@@ -12,7 +12,12 @@ import {
   AddItemSchema,
 } from "@/type/zod/Item";
 
-function BudgetForm({ mode, initialValues, onSubmit }: AddItemFormProps) {
+function BudgetForm({
+  mode,
+  initialValues,
+  onSubmit,
+  updateSuccess,
+}: AddItemFormProps) {
   const {
     register,
     handleSubmit,
@@ -43,7 +48,12 @@ function BudgetForm({ mode, initialValues, onSubmit }: AddItemFormProps) {
 
   return (
     <div className="absolute top-0 flex flex-col h-screen w-screen max-w-xs md:max-w-md lg:max-w-lg xl:max-w-xl justify-center items-center gap-8">
-      <div className="rounded-lg flex flex-col h-auto w-full shadow-md bg-base-200 gap-8 p-8">
+      <div
+        className={`rounded-lg flex flex-col h-auto w-full shadow-md bg-base-200 gap-8 p-8 transition-all duration-300 ease-in-out ${
+          updateSuccess ? "ring-2 ring-green-500" : "ring-0"
+        } 
+        } ring-accent`}
+      >
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
           <label className="self-start text-2xl flex gap-2" htmlFor="title">
             {mode === "add" ? (

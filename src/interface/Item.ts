@@ -1,9 +1,12 @@
-export interface itemProps {
+
+export interface itemStatus {
+    status: "APPROVED" | "PENDING" | "REJECTED";
+}
+export interface itemProps extends itemStatus {
     id: number;
     title: string;
     amount: number;
     quantity: number;
-    status: "APPROVED" | "PENDING" | "REJECTED";
 }
 
 export interface ItemRowProps {

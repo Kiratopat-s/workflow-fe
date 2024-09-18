@@ -1,3 +1,4 @@
+import { itemStatus } from "@/interface/Item";
 import { AddItemFormValues } from "@/type/zod/Item";
 import axios, { AxiosError } from "axios";
 import toast from "react-hot-toast";
@@ -47,6 +48,38 @@ export async function UpdateItemStatus({ status }: itemStatus, ids: number[]) {
         toast.success(`Updated item status in ${Date.now() - start_timer}ms`);
     } catch (error) {
         toast.error("Failed to update item status");
+        console.log(error);
+    }
+}
+
+export async function GetItemInfoById(id: number) {
+    const start_timer = Date.now();
+    try {
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/items/${id}`, {
+            withCredentials: true,
+        });
+        toast.success(`Fetched item info in ${Date.now() - start_timer}ms`);
+        return res.data.data;
+    } catch (error) {
+        toast.error("Failed to get item info");
+        console.log(error);
+    }
+}
+
+export async function UpdateItemById(id: number, data: AddItemFormValues) {
+    const start_timer = Date.now();
+    try {
+        const res = await axios.put(
+            `${process.env.NEXT_PUBLIC_API_URL}/items/${id}`,
+            data,
+            {
+                withCredentials: true,
+            }
+        );
+        toast.success(`Updated item in ${Date.now() - start_timer}ms`);
+        return res;
+    } catch (error) {
+        toast.error("Failed to update item");
         console.log(error);
     }
 }
