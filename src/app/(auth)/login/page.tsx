@@ -41,7 +41,7 @@ function Login() {
         // Update AuthContext with user information
         login(response.token);
         toast.success(`Login successful (Duration: ${duration}ms)`);
-        router.push("/dashboard");
+        router.push("/");
       } else {
         toast.error(response.message);
       }

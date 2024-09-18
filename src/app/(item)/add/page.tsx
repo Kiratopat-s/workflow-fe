@@ -16,7 +16,7 @@ function AddBudget() {
       await AddNewItem(data);
       toast.success(`Budget added (Duration: ${Date.now() - startTime}ms)`);
       await fetchItemStatus();
-      router.push("/dashboard");
+      router.push("/");
     } catch (error) {
       console.error("Add budget error:", error);
       toast.error("Failed to add budget");

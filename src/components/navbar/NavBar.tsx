@@ -43,7 +43,7 @@ function NavBar() {
     <nav className="sticky top-0 z-50">
       <div className="navbar bg-base-100">
         <div className="flex-1">
-          <Link href={"/"} className="btn btn-ghost text-xl">
+          <Link href={"/about"} className="btn btn-ghost text-xl">
             Workflow
           </Link>
         </div>
@@ -114,10 +114,7 @@ function NavBar() {
                       {ItemStatus.REJECTED} : {itemStatus.REJECTED || 0}
                     </span>
                     <div className="card-actions">
-                      <Link
-                        href={"/dashboard"}
-                        className="btn btn-primary btn-block"
-                      >
+                      <Link href={"/"} className="btn btn-primary btn-block">
                         Checkout
                       </Link>
                     </div>

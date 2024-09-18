@@ -1,4 +1,4 @@
 export enum AppPath {
-    dashboard = "/dashboard",
+    dashboard = "/",
     add = "/add"
 }

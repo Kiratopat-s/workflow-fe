@@ -24,7 +24,7 @@ const ItemRow: React.FC<ItemRowProps> = ({
       <td>
         {item.status === ItemStatus.PENDING ? (
           <Link
-            href={`/update/${item.id}`}
+            href={`/edit/${item.id}`}
             className="cursor-pointer hover:underline flex gap-2 align-baseline"
           >
             <div className="self-center">
