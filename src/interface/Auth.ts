@@ -33,3 +33,27 @@ export interface JwtPayload {
     uid: number;
     username: string;
 }
+
+export interface LoginRequest {
+    username: string;
+    password: string;
+}
+
+export interface LoginResponse {
+    message: string;
+    token: string;
+}
+
+export interface RegisterRequest {
+    username: string;
+    password: string;
+    position?: string;
+    firstName?: string;
+    lastName?: string;
+    photoLink?: string;
+}
+
+export interface RegisterResponse {
+    success: boolean;
+    message: string;
+}
