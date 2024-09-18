@@ -2,10 +2,12 @@
 import { useAuth } from "@/context/AuthContext";
 import { useItemStatus } from "@/context/ItemStatusContext";
 import { ItemStatus } from "@/enum/Item";
+import { AppPath } from "@/enum/Path";
 import { PackageOpen } from "lucide-react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 function NavberButton({ title }: { title: string }) {
@@ -17,6 +19,7 @@ function NavberButton({ title }: { title: string }) {
   );
 }
 function NavBar() {
+  const pathname = usePathname();
   const { itemStatus, fetchItemStatus } = useItemStatus();
   const { user, isAuthenticated, logout } = useAuth();
   const [mounted, setMounted] = useState(false);
@@ -56,22 +59,22 @@ function NavBar() {
               checked={resolvedTheme === "dark"}
               onChange={ToggleThemeHandler}
             />
-            <ul className="menu menu-horizontal px-1">
-              <li>
-                <details>
-                  <summary>Items</summary>
-                  <ul className="bg-base-100 rounded-t-none p-2">
-                    <li>
-                      <Link href={"/add"}>New</Link>
-                    </li>
-                    <li>
-                      <Link href={"/update"}>Update</Link>
-                    </li>
-                  </ul>
-                </details>
-              </li>
-            </ul>
           </div>
+          {pathname === AppPath.add ? (
+            <button
+              className="btn btn-outline btn-accent btn-sm cursor-pointer"
+              onClick={() => window.history.back()}
+            >
+              Back
+            </button>
+          ) : (
+            <Link
+              className="btn btn-accent btn-sm cursor-pointer"
+              href={"/add"}
+            >
+              New
+            </Link>
+          )}
         </div>
         <div className="flex-none">
           {isAuthenticated ? (
