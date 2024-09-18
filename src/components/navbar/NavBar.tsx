@@ -60,20 +60,26 @@ function NavBar() {
               onChange={ToggleThemeHandler}
             />
           </div>
-          {pathname === AppPath.add ? (
-            <button
-              className="btn btn-outline btn-accent btn-sm cursor-pointer"
-              onClick={() => window.history.back()}
-            >
-              Back
-            </button>
+          {isAuthenticated ? (
+            <>
+              {pathname === AppPath.add ? (
+                <button
+                  className="btn btn-outline btn-accent btn-sm cursor-pointer"
+                  onClick={() => window.history.back()}
+                >
+                  Back
+                </button>
+              ) : (
+                <Link
+                  className="btn btn-accent btn-sm cursor-pointer"
+                  href={"/add"}
+                >
+                  New
+                </Link>
+              )}
+            </>
           ) : (
-            <Link
-              className="btn btn-accent btn-sm cursor-pointer"
-              href={"/add"}
-            >
-              New
-            </Link>
+            <></>
           )}
         </div>
         <div className="flex-none">
@@ -155,7 +161,7 @@ function NavBar() {
               </div>
             </div>
           ) : (
-            <Link href={"/login"}>
+            <Link className="mx-2" href={"/login"}>
               <NavberButton title="Login" />
             </Link>
           )}
