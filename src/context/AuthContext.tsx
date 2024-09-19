@@ -44,7 +44,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     decodeTokenAndSetUser(token);
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     setUser(null);
     setIsAuthenticated(false);
     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
