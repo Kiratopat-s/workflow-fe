@@ -7,6 +7,7 @@ export interface itemProps extends itemStatus {
     title: string;
     amount: number;
     quantity: number;
+    owner_id: number;
 }
 
 export interface ItemRowProps {

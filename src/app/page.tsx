@@ -1,5 +1,5 @@
+import Loading from "@/app/loadging";
 import HomeBanner from "@/components/home/HomeBanner";
-import Loading from "./loadging";
 
 export default function Home() {
   return (

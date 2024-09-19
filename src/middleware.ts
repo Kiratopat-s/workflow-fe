@@ -1,26 +1,19 @@
+'use client';
 import { NextResponse } from 'next/server';
 import { NextRequest } from 'next/server';
 
 export function middleware(req: NextRequest) {
-    const token = req.cookies.get('token'); // Read token from cookies
-
-    const { pathname } = req.nextUrl;
-
-    // If the user is trying to access /login and is already authenticated, redirect to /dashboard
-    if (pathname === '/login' && token) {
-        return NextResponse.redirect(new URL('/dashboard', req.url));
+    const protectedRoutes = ["/", "/add", "/edit", "/approval"];
+    const isAuthenticated = req.cookies.get('token');
+    if (!isAuthenticated && protectedRoutes.includes(req.nextUrl.pathname)) {
+        const absoluteURL = new URL("/login", req.nextUrl.origin);
+        return NextResponse.redirect(absoluteURL.toString());
     }
-
-    const protectedPaths = ['/dashboard', '/add', '/update', '/profile'];
-
-    // Redirect to /login if user is trying to access protected paths without a token
-    if (protectedPaths.some(path => pathname.startsWith(path)) && !token) {
-        return NextResponse.redirect(new URL('/login', req.url));
-    }
-
-    return NextResponse.next(); // Allow access if no redirects are needed
+    // if (isAuthenticated && req.nextUrl.pathname === "/login") {
+    //     const absoluteURL = new URL("/", req.nextUrl.origin);
+    //     return NextResponse.redirect(
+    //         absoluteURL.toString()
+    //     );
+    // }
+    return NextResponse.next();
 }
-
-export const config = {
-    matcher: ['/login', '/dashboard/:path*', '/add/:path*', '/update/:path*', '/profile/:path*'], // Match multiple paths including /login
-};

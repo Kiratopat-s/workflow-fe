@@ -14,7 +14,12 @@ import { LoginFormValues, LoginSchema } from "@/type/zod/Auth";
 
 function Login() {
   const router = useRouter();
-  const { login } = useAuth();
+  const { login, isAuthenticated } = useAuth();
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.replace("/dashboard");
+    }
+  }, [isAuthenticated, router]);
 
   // Initialize react-hook-form with Zod schema
   const {

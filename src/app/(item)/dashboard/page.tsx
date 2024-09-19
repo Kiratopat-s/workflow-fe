@@ -17,8 +17,10 @@ import {
 } from "@/services/item/Items";
 import { itemProps } from "@/interface/Item";
 import { useItemStatus } from "@/context/ItemStatusContext";
+import { useAuth } from "@/context/AuthContext";
 
 function Dashboard() {
+  const { user } = useAuth();
   const [items, setItems] = useState<itemProps[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredItems, setFilteredItems] = useState<itemProps[]>([]);
@@ -133,20 +135,24 @@ function Dashboard() {
                   <div className="absolute flex gap-2">
                     {choosedIDs.length > 0 && (
                       <>
-                        <div
-                          onClick={ApproveHandler}
-                          className="btn btn-success text-base-300"
-                        >
-                          <SearchCheck />
-                          Approve
-                        </div>
-                        <div
-                          onClick={RejectHandler}
-                          className="btn btn-warning text-base-300"
-                        >
-                          <OctagonAlert />
-                          Reject
-                        </div>
+                        {user?.position === "Admin" && (
+                          <>
+                            <div
+                              onClick={ApproveHandler}
+                              className="btn btn-success text-base-300"
+                            >
+                              <SearchCheck />
+                              Approve
+                            </div>
+                            <div
+                              onClick={RejectHandler}
+                              className="btn btn-warning text-base-300"
+                            >
+                              <OctagonAlert />
+                              Reject
+                            </div>
+                          </>
+                        )}
                         <div
                           onClick={DeleteHandler}
                           className="btn btn-error text-base-300"
@@ -173,7 +179,7 @@ function Dashboard() {
               <th>Status</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="h-[20%] overflow-scroll">
             {filteredItems.map((item: itemProps) => (
               <ItemRow
                 key={item.id}

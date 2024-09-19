@@ -68,7 +68,7 @@ function BudgetForm({
                 <div className="flex flex-col justify-center">
                   <i className="fa-solid fa-pen-to-square"></i>
                 </div>
-                Update budget
+                Edit Requirement
               </>
             )}
           </label>

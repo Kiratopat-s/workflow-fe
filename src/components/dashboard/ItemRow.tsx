@@ -1,3 +1,4 @@
+import { useAuth } from "@/context/AuthContext";
 import { ItemStatus } from "@/enum/Item";
 import { ItemRowProps } from "@/interface/Item";
 import { Pencil, ShieldCheck } from "lucide-react";
@@ -8,6 +9,7 @@ const ItemRow: React.FC<ItemRowProps> = ({
   choosedIDs,
   handleCheckboxChange,
 }) => {
+  const { user } = useAuth();
   return (
     <tr key={item.id} className="hover:bg-base-200">
       <th>
@@ -24,7 +26,7 @@ const ItemRow: React.FC<ItemRowProps> = ({
       <td>
         {item.status === ItemStatus.PENDING ? (
           <Link
-            href={`/update/${item.id}`}
+            href={`/edit/${item.id}`}
             className="cursor-pointer hover:underline flex gap-2 align-baseline"
           >
             <div className="self-center">
@@ -40,7 +42,16 @@ const ItemRow: React.FC<ItemRowProps> = ({
             <p className="self-center">{item.title}</p>
           </div>
         )}
-        <span className="badge badge-ghost badge-sm">x {item.quantity}</span>
+        <span className="badge badge-ghost hover:badge-accent badge-sm mr-2 cursor-pointer">
+          x {item.quantity}
+        </span>
+        {item.owner_id === user?.uid ? (
+          <span className="badge badge-outline badge-accent badge-sm cursor-pointer">
+            Owner
+          </span>
+        ) : (
+          <></>
+        )}
       </td>
       <th>
         <p
