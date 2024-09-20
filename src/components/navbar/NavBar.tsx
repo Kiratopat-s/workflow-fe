@@ -26,7 +26,6 @@ function NavBar() {
   const { setTheme, resolvedTheme } = useTheme();
 
   useEffect(() => {
-    console.log(isAuthenticated);
     setMounted(true);
   }, []);
 
@@ -115,10 +114,7 @@ function NavBar() {
                       {ItemStatus.REJECTED} : {itemStatus.REJECTED || 0}
                     </span>
                     <div className="card-actions">
-                      <Link
-                        href={"/"}
-                        className="btn btn-primary btn-block"
-                      >
+                      <Link href={"/"} className="btn btn-primary btn-block">
                         Checkout
                       </Link>
                     </div>
