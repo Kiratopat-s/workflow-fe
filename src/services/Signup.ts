@@ -4,10 +4,10 @@ import axios from 'axios';
 interface RegisterRequest {
     username: string;
     password: string;
-    position?: string;
-    firstName?: string;
-    lastName?: string;
-    photoLink?: string;
+    position: string;
+    first_name: string;
+    last_name: string;
+    photo_link: string;
 }
 
 interface RegisterResponse {
