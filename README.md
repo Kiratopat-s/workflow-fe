@@ -71,35 +71,82 @@ The app was developed by **Kiratipat.S** for the **DEVPOOL-PEA-2024** initiative
 5. **Access the App**
    Open your browser and navigate to `http://localhost:8000`.
 
-<!-- ## Project Structure
+## Project Structure
 ```
-public
-src
-├── app
-│   ├── (auth)
-│   │   ├── login
-│   │   │   └── page.tsx
-│   │   └── signup
-│   │       └── page.tsx
-│   ├── (itenm)
-├── components
-│   ├── navbar
-│   │   └── NavBar.tsx
-│   ├── ThemeProvider.tsx
-├── context
-│   ├── AuthContext.tsx
-│   └── ItemStatusContext.tsx
-├── pages
-│   ├── _app.tsx
-│   ├── index.tsx
-│   └── login.tsx
-├── public
-├── styles
-│   └── globals.css
-├── types
-│   └── Auth.d.ts
-└── README.md
-``` -->
+.eslintrc.json
+.gitignore
+.hintrc
+README.md
+next.config.mjs
+package-lock.json
+package.json
+pnpm-lock.yaml
+postcss.config.mjs
+[public]
+    ├── next.svg
+    └── vercel.svg
+[src]
+    ├── [app]
+        ├── [(auth)]
+            ├── [login]
+                └── page.tsx
+            └── [signup]
+                └── page.tsx
+        ├── [(item)]
+            ├── [add]
+                └── page.tsx
+            └── [edit]
+                └── [[id]]
+                    └── page.tsx
+        ├── [about]
+            └── page.tsx
+        ├── favicon.ico
+        ├── globals.css
+        ├── layout.tsx
+        ├── loadging.tsx
+        └── page.tsx
+    ├── [components]
+        ├── FlexibleForm.tsx
+        ├── ThemeProvider.tsx
+        ├── [auth]
+            └── SignupForm.tsx
+        ├── [budget]
+            ├── AmountInput.tsx
+            ├── BudgetForm.tsx
+            ├── QuantityInput.tsx
+            └── TitleInput.tsx
+        ├── [dashboard]
+            └── ItemRow.tsx
+        ├── [home]
+            ├── HomeBanner.tsx
+            └── HomeTypeWriter.tsx
+        └── [navbar]
+            └── NavBar.tsx
+    ├── [context]
+        ├── AuthContext.tsx
+        └── ItemStatusContext.tsx
+    ├── [enum]
+        ├── Item.ts
+        └── Path.ts
+    ├── [interface]
+        ├── Auth.ts
+        └── Item.ts
+    ├── middleware.ts
+    ├── [services]
+        ├── Signin.ts
+        ├── Signup.ts
+        └── [item]
+            └── Items.ts
+    ├── [type]
+        ├── User.ts
+        └── [zod]
+            ├── Auth.ts
+            └── Item.ts
+    └── [utils]
+        └── debounce.tsx
+tailwind.config.ts
+tsconfig.json
+```
 
 ### Key Files
 - **`AuthContext.tsx`**: Manages user authentication, token storage, and state.
