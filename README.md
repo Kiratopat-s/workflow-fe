@@ -71,8 +71,17 @@ The app was developed by **Kiratipat.S** for the **DEVPOOL-PEA-2024** initiative
 5. **Access the App**
    Open your browser and navigate to `http://localhost:8000`.
 
-## Project Structure
+<!-- ## Project Structure
 ```
+public
+src
+├── app
+│   ├── (auth)
+│   │   ├── login
+│   │   │   └── page.tsx
+│   │   └── signup
+│   │       └── page.tsx
+│   ├── (itenm)
 ├── components
 │   ├── navbar
 │   │   └── NavBar.tsx
@@ -90,7 +99,7 @@ The app was developed by **Kiratipat.S** for the **DEVPOOL-PEA-2024** initiative
 ├── types
 │   └── Auth.d.ts
 └── README.md
-```
+``` -->
 
 ### Key Files
 - **`AuthContext.tsx`**: Manages user authentication, token storage, and state.
