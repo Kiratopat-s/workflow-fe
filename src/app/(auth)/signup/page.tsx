@@ -18,7 +18,7 @@ const Register: React.FC = () => {
     const startTime = Date.now();
     const promise = registerUser(data)
       .then((res) => {
-        if (res.success) router.push("/login");
+        if (res.success) return router.push("/login");
         else toast.error(`Registration failed: ${res.message}`);
       })
       .catch((error) => {
