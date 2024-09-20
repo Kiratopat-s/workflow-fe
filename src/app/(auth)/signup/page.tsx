@@ -17,7 +17,8 @@ const Register: React.FC = () => {
   const onSubmit: SubmitHandler<SignupFormValues> = async (data) => {
     const startTime = Date.now();
     const promise = registerUser(data)
-      .then(() => {
+      .then((res) => {
+        console.log("Registration successful:", res);
         router.push("/login");
       })
       .catch((error) => {
