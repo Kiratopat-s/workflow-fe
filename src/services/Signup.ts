@@ -12,8 +12,10 @@ export const SignupUser = async (userData: RegisterRequest): Promise<RegisterRes
                 message: response.statusText || 'An error occurred',
             };
         }
-
-        return response.data;
+        return {
+            success: true,
+            message: String(response.data) || 'Successfully registered',
+        };
     } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
             return {
