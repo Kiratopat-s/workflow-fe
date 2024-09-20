@@ -1,7 +1,6 @@
-import { SubmitHandler } from "react-hook-form";
+import { SubmitHandler, UseFormRegister } from "react-hook-form";
 import { z } from "zod";
 
-// Define Zod schema for form validation
 export const AddItemSchema = z.object({
     title: z.string().min(1, "Title is required").max(30, "Title is too long"),
     quantity: z
@@ -15,7 +14,6 @@ export const AddItemSchema = z.object({
         }),
 });
 
-// Define the form values type
 export type AddItemFormValues = z.infer<typeof AddItemSchema>;
 
 export type AddItemFormProps = {
@@ -23,4 +21,31 @@ export type AddItemFormProps = {
     initialValues?: Partial<AddItemFormValues>;
     onSubmit: SubmitHandler<AddItemFormValues>;
     updateSuccess?: boolean;
+};
+
+export type AmountInputProps = {
+    register: UseFormRegister<{
+        title: string;
+        quantity: number;
+        amount: number;
+    }>;
+    error?: string;
+    onBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
+};
+export type QuantityInputProps = {
+    register: UseFormRegister<{
+        title: string;
+        quantity: number;
+        amount: number;
+    }>;
+    error?: string;
+};
+
+export type TitleInputProps = {
+    register: UseFormRegister<{
+        title: string;
+        quantity: number;
+        amount: number;
+    }>;
+    error?: string;
 };

@@ -15,7 +15,6 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSubmit }) => {
     resolver: zodResolver(SignupSchema),
   });
 
-  // Define field configurations
   const Signupfields = [
     {
       id: "username",
@@ -59,7 +58,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSubmit }) => {
       label: "Photo Link",
       error: errors.photo_link,
     },
-  ] as const; // Ensure fields is readonly and matches SignupFormValues keys
+  ] as const; 
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">

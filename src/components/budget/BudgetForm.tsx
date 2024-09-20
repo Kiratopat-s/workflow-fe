@@ -29,14 +29,12 @@ function BudgetForm({
     defaultValues: initialValues || { title: "", quantity: 0, amount: 0 },
   });
 
-  // Populate form with initial values when in "update" mode
   useEffect(() => {
     if (initialValues) {
       reset(initialValues);
     }
   }, [initialValues, reset]);
 
-  // Handle formatting of the amount input on blur
   const handleAmountBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     const value = parseFloat(event.target.value);
     if (!isNaN(value)) {

@@ -14,8 +14,8 @@ function UpdateBudget({ params }: { params: { id: number } }) {
 
   const [initialValues, setInitialValues] =
     useState<Partial<AddItemFormValues> | null>(null);
-  const [loading, setLoading] = useState<boolean>(true); // Manage loading state
-  const [error, setError] = useState<string | null>(null); // Manage error state
+  const [loading, setLoading] = useState<boolean>(true); 
+  const [error, setError] = useState<string | null>(null);
   const [updateSuccess, setUpdateSuccess] = useState<boolean>(false);
 
   useEffect(() => {
@@ -27,18 +27,16 @@ function UpdateBudget({ params }: { params: { id: number } }) {
         setError("Failed to fetch item data.");
         console.error(err);
       } finally {
-        setLoading(false); // Ensure loading is set to false once the fetch is done
+        setLoading(false);
       }
     };
 
     fetchItemInfo();
-  }, [itemId]); // Add itemId as a dependency to re-fetch if it changes
+  }, [itemId]); 
 
   async function UpdateAnimation() {
-    // Simulate a successful data update
     setUpdateSuccess(true);
 
-    // Reset the animation after 600ms
     setTimeout(() => {
       setUpdateSuccess(false);
     }, 600);

@@ -1,13 +1,6 @@
+import { QuantityInputProps } from "@/type/zod/Item";
 import { useForm, UseFormRegister } from "react-hook-form";
 
-type QuantityInputProps = {
-  register: UseFormRegister<{
-    title: string;
-    quantity: number;
-    amount: number;
-  }>;
-  error?: string;
-};
 
 const QuantityInput = ({ register, error }: QuantityInputProps) => (
   <div className="flex flex-col gap-2">

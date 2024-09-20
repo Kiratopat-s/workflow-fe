@@ -1,6 +1,5 @@
-// types/formTypes.ts
 import { SignupFormValues } from "@/type/zod/Auth";
-import { SubmitHandler } from "react-hook-form";
+import { FieldError, SubmitHandler, UseFormRegister } from "react-hook-form";
 
 
 export interface SignupFormProps {
@@ -33,3 +32,36 @@ export interface JwtPayload {
     uid: number;
     username: string;
 }
+
+export interface LoginRequest {
+    username: string;
+    password: string;
+}
+
+export interface LoginResponse {
+    message: string;
+    token: string;
+}
+
+export interface RegisterRequest {
+    username: string;
+    password: string;
+    position: string;
+    first_name: string;
+    last_name: string;
+    photo_link: string;
+}
+
+export interface RegisterResponse {
+    success: boolean;
+    message: string;
+}
+
+export interface FlexibleFormProps {
+    id: keyof SignupFormValues; 
+    type: string;
+    placeholder: string;
+    label: string;
+    register: UseFormRegister<SignupFormValues>;
+    error?: FieldError;
+  }

@@ -1,15 +1,8 @@
 import React from "react";
 import { UseFormRegister, FieldError } from "react-hook-form";
 import { SignupFormValues } from "@/type/zod/Auth";
+import { FlexibleFormProps } from "@/interface/Auth";
 
-interface FlexibleFormProps {
-  id: keyof SignupFormValues; // Ensure this matches the keys in SignupFormValues
-  type: string;
-  placeholder: string;
-  label: string;
-  register: UseFormRegister<SignupFormValues>;
-  error?: FieldError;
-}
 
 const FlexibleForm: React.FC<FlexibleFormProps> = ({
   id,
