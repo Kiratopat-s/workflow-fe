@@ -4,7 +4,7 @@ import HomeBanner from "@/components/home/HomeBanner";
 export default function Home() {
   return (
     <>
-      <HomeBanner render3D={false} loading={<Loading />} />
+      <HomeBanner render3D={true} loading={<Loading />} />
     </>
   );
 }
