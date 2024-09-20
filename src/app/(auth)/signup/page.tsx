@@ -16,25 +16,23 @@ const Register: React.FC = () => {
 
   const onSubmit: SubmitHandler<SignupFormValues> = async (data) => {
     const startTime = Date.now();
-    const promise = registerUser(data)
-      .then((res) => {
-        if (res.success) return router.push("/login");
-        else toast.error(`Registration failed: ${res.message}`);
-      })
-      .catch((error) => {
-        console.error("Registration error:", error);
-        toast.error("Registration failed");
-      });
-
-    toast.promise(promise, {
-      loading: "Processing...",
-      success: () => {
+  
+    try {
+      const res = await registerUser(data);
+  
+      if (res.success) {
         const endTime = Date.now();
         const duration = endTime - startTime;
-        return `Registration successful (${duration} ms)`;
-      },
-      error: () => "Registration failed",
-    });
+  
+        toast.success(`Registration successful (${duration} ms)`);
+        return router.push("/login");
+      } else {
+        toast.error(`Registration failed: ${res.message}`);
+      }
+    } catch (error) {
+      console.error("Registration error:", error);
+      toast.error("Registration failed");
+    }
   };
 
   return (
