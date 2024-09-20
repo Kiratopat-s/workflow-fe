@@ -11,13 +11,13 @@ WORKDIR /app
 COPY package*.json pnpm-lock.yaml ./
 
 # Install dependencies using pnpm
-RUN pnpm install --prod
+RUN pnpm install
 
 # Copy the rest of the application files excluding node_modules
 COPY . .
 
 # Build the Next.js application
-RUN pnpm run build
+RUN pnpm build
 
 # Set environment variable for Next.js to listen on port 8000
 ENV PORT=8000
