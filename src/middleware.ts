@@ -1,19 +1,21 @@
-'use client';
 import { NextResponse } from 'next/server';
-import { NextRequest } from 'next/server';
+import type { NextRequest } from 'next/server';
 
-export function middleware(req: NextRequest) {
-    const protectedRoutes = ["/", "/add", "/edit", "/approval"];
-    const isAuthenticated = req.cookies.get('token');
-    if (!isAuthenticated && protectedRoutes.includes(req.nextUrl.pathname)) {
-        const absoluteURL = new URL("/login", req.nextUrl.origin);
-        return NextResponse.redirect(absoluteURL.toString());
-    }
-    // if (isAuthenticated && req.nextUrl.pathname === "/login") {
-    //     const absoluteURL = new URL("/", req.nextUrl.origin);
-    //     return NextResponse.redirect(
-    //         absoluteURL.toString()
-    //     );
-    // }
-    return NextResponse.next();
+export async function middleware(request: NextRequest) {
+        const token = request.cookies.get('token')?.value;
+
+        if (request.nextUrl.pathname === '/about') {
+            console.log(request.nextUrl.pathname === '/about');
+            return NextResponse.next();
+        }
+
+        if (!token) {
+            return NextResponse.redirect(new URL('/about', request.url));
+        }
+
+        return NextResponse.next();
 }
+
+export const config = {
+    matcher: ['/', '/add', '/edit', '/profile'],
+};

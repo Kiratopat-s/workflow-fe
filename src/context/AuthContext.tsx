@@ -63,9 +63,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
     if (token) {
       decodeTokenAndSetUser(token);
-    } else {
-      // No token found, redirect to login
-      router.push("/login");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router]);

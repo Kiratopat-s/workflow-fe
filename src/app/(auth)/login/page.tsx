@@ -17,7 +17,7 @@ function Login() {
   const { login, isAuthenticated } = useAuth();
   useEffect(() => {
     if (isAuthenticated) {
-      router.replace("/dashboard");
+      router.replace("/");
     }
   }, [isAuthenticated, router]);
 
@@ -46,7 +46,7 @@ function Login() {
         // Update AuthContext with user information
         login(response.token);
         toast.success(`Login successful (Duration: ${duration}ms)`);
-        router.push("/dashboard");
+        router.push("/");
       } else {
         toast.error(response.message);
       }

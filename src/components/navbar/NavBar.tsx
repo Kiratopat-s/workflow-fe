@@ -116,7 +116,7 @@ function NavBar() {
                     </span>
                     <div className="card-actions">
                       <Link
-                        href={"/dashboard"}
+                        href={"/"}
                         className="btn btn-primary btn-block"
                       >
                         Checkout
