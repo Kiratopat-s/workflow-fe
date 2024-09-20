@@ -42,6 +42,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const login = (token: string) => {
     decodeTokenAndSetUser(token);
+    router.push("/");
   };
 
   const handleLogout = () => {
