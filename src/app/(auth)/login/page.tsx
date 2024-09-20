@@ -19,6 +19,10 @@ function Login() {
     if (isAuthenticated) {
       router.replace("/");
     }
+    const usernameInput = document.getElementById("username");
+    if (usernameInput) {
+      usernameInput.focus();
+    }
   }, [isAuthenticated, router]);
 
   // Initialize react-hook-form with Zod schema
