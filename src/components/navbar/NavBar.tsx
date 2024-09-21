@@ -104,14 +104,23 @@ function NavBar() {
                 >
                   <div className="card-body">
                     <span className="text-lg font-bold">My item</span>
-                    <span className="text-info">
-                      {ItemStatus.PENDING} : {itemStatus.PENDING || 0}
+                    <span>
+                      {ItemStatus.PENDING} :{" "}
+                      <span className="text-info font-bold">
+                        {itemStatus.PENDING || 0}
+                      </span>
                     </span>
-                    <span className="text-success">
-                      {ItemStatus.APPROVED} : {itemStatus.APPROVED || 0}
+                    <span>
+                      {ItemStatus.APPROVED} : {""}
+                      <span className="text-success font-bold">
+                        {itemStatus.APPROVED || 0}
+                      </span>
                     </span>
-                    <span className="text-error">
-                      {ItemStatus.REJECTED} : {itemStatus.REJECTED || 0}
+                    <span>
+                      {ItemStatus.REJECTED} :{" "}
+                      <span className="text-error font-bold">
+                        {itemStatus.REJECTED || 0}
+                      </span>
                     </span>
                     <div className="card-actions">
                       <Link href={"/"} className="btn btn-primary btn-block">
